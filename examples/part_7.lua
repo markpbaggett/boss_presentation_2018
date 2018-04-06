@@ -39,6 +39,6 @@ function _update()
         char.flipx = false
         char.y_pos -= 1
     elseif (btn(4)) then
-        char.teleport()
+        char:teleport()
     end
 end
