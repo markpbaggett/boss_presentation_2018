@@ -275,7 +275,7 @@ function _update()
 end
 ```
 
-#### [Seven: Movement, Operators, and Methods]()
+## [Seven: Movement, Operators, and Methods](examples/part_7.lua)
 
 Our goblin still isn't moving.  We need to add some code to do this.  
 
