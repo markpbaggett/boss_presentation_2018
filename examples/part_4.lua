@@ -1,5 +1,5 @@
 char = {
-    spr_val = 4,
+    spr_num = 4,
     x_pos = 60,
     y_pos = 60,
     spr_ht = 2,
@@ -13,5 +13,5 @@ end
 
 function _draw()
     cls()
-    spr(char.spr_val, char.x_pos, char.y_pos, 2, 2)
+    spr(char.spr_num, char.x_pos, char.y_pos, 2, 2)
 end

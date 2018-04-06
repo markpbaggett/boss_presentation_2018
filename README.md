@@ -148,7 +148,7 @@ To fix this, let's convert all our existing variables to a table called char.  T
 
 ```lua
 char = {
-  spr_val = 4,
+  spr_num = 4,
   x_pos = 60,
   y_pos = 60,
 }
@@ -159,7 +159,7 @@ Now that we've defined our table, we can update our function_draw() to use it:
 ```lua
 function _draw()
   cls()
-  spr(char.spr_val, char.x_pos, char.y_pos, 2, 2)
+  spr(char.spr_num, char.x_pos, char.y_pos, 2, 2)
 end
 ```
 
@@ -169,7 +169,7 @@ Let's go ahead and add a sprite height and width as well as a few more key value
 
 ```lua
 char = { 
-    spr_val = 4,
+    spr_num = 4,
     x_pos = 60,
     y_pos = 60,
     spr_ht = 2,
@@ -208,14 +208,14 @@ Pico-8 has a few other data types.  Let's add 2 to our char table:
 
 ```lua
 char = {
- spr_val = 4,
+ spr_num = 4,
  x_pos = 60,
  y_pos = 60,
  spr_ht = 2,
  spr_wt = 2,
  health = 4,
  name = "grishnakh",
- spr_flipx = false,
+ flipx = false,
 }
 ```
 
@@ -232,7 +232,7 @@ Let's add this to our _draw().
 ```lua
 function _draw()
   cls()
-  spr(char.spr_val, char.x_pos, char.y_pos, char.spr_ht, char.spr_wt, char.spr_flipx)
+  spr(char.spr_num, char.x_pos, char.y_pos, char.spr_ht, char.spr_wt, char.flipx)
 end
 ```
 
@@ -262,11 +262,9 @@ function _update()
   if (btn(0)) then
     char.spr_num = 6
     char.flipx = true
-    char.xpos = -1
   elseif (btn(1)) then
     char.spr_num = 6
     char.flipx = false
-    char.xpos = 
   elseif (btn(2)) then
     char.spr_num = 32
     char.flipx = false
@@ -292,15 +290,15 @@ function _update()
     elseif (btn(1)) then
         char.spr_num = 6
         char.flipx = false
-        char.xpos += 1
+        char.x_pos += 1
     elseif (btn(2)) then
         char.spr_num = 32
         char.flipx = false
-        char.y_pos += 1
+        char.y_pos -= 1
     elseif (btn(3)) then
         char.spr_num = 4
         char.flipx = false
-        char.y_pos -= 1
+        char.y_pos += 1
     end
 end
 ```
@@ -312,7 +310,7 @@ Tables can also contain functions.  Other languages may call these methods.  Let
 #### Our Code Should Look Like This:
 ```lua
 char = {
-    spr_val = 4,
+    spr_num = 4,
     x_pos = 60,
     y_pos = 60,
     spr_ht = 2,
@@ -346,15 +344,15 @@ function _update()
     elseif (btn(1)) then
         char.spr_num = 6
         char.flipx = false
-        char.xpos += 1
+        char.x_pos += 1
     elseif (btn(2)) then
         char.spr_num = 32
         char.flipx = false
-        char.y_pos += 1
+        char.y_pos -= 1
     elseif (btn(3)) then
         char.spr_num = 4
         char.flipx = false
-        char.y_pos -= 1
+        char.y_pos += 1
     elseif (btn(4)) then
         char:teleport()
     end
