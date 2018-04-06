@@ -76,7 +76,7 @@ To get started, let's write some variables to represent our character and assign
 
 ##### Our New Code Should Look Like:
 
-```
+```lua
 char_spr = 4
 char_xpos = 60
 char_ypos = 60
@@ -97,7 +97,7 @@ Let's write an _init() function and make it clear the screen when the game start
 Pico-8 has several [predefined functions]() that you can use.
 
 ##### Our New Code Should Look Like:
-```
+```lua
 function _init()
   cls()
 end
@@ -112,7 +112,7 @@ Let's define our new _draw() function and use it to draw our character. To do th
 Functions can take special instructions called parameters by passing comma-separated values inside the parentheses. The spr() function accepts 7 parameters, but not all are required.  The first 3 are sprite number, x postion, and y position. Let's draw our sprite.
 
 ##### Our New Code Should Look Like:
-```
+```lua
 function _draw()
   spr(4, 60, 60)
 end
@@ -122,7 +122,7 @@ If we execute our program now, it will display our sprite, but this isn't great.
 
 #### Our New Code Should look like this:
 
-```
+```lua
 function _draw()
   spr(char_spr, char_x, char_y)
 end
@@ -132,7 +132,7 @@ This is more dynamic, but it only displays part of the sprite.  We can display t
 
 #### Our New Code Should look like this:
 
-```
+```lua
 function _draw()
   spr(char_spr, char_x, char_y, 2, 2)
 end
@@ -146,7 +146,7 @@ To fix this, let's convert all our existing variables to a table called char.  T
 
 #### Our New Code Should look like this:
 
-```
+```lua
 char = {
   spr_val = 4,
   x_pos = 60,
@@ -156,7 +156,7 @@ char = {
 
 Now that we've defined our table, we can update our function_draw() to use it:
 
-```
+```lua
 function _draw()
   spr(char.spr_val, char.x_pos, char.y_pos, 2, 2)
 end
@@ -166,7 +166,7 @@ Let's go ahead and add a sprite height and width as well as a few more key value
 
 #### Our New Code Should Look Like This
 
-```
+```lua
 char = { 
     spr_val = 4,
     x_pos = 60,
@@ -182,7 +182,7 @@ char = {
 
 So far, all of our values in our variable declarations have looked like this:
 
-```
+```lua
 spr_val = 4
 ```
 
@@ -191,7 +191,7 @@ This type of value in Pico-8 is a special data type called a number. Numbers are
 For instance, in Pico-8 you can add, subtract, multiply, and divide numbers:
 
 #### Example
-```
+```lua
 1 + 1
 2 - 1
 4 * 8
@@ -205,7 +205,7 @@ Pico-8 has a few other data types.  Let's add 2 to our char table:
 
 #### Our code should look like:
 
-```
+```lua
 char = {
  spr_val = 4,
  x_pos = 60,
@@ -228,7 +228,7 @@ Let's add this to our _draw().
 
 #### Our code should look like:
 
-```
+```lua
 function _draw()
   spr(char.spr_val, char.x_pos, char.y_pos, char.spr_ht, char.spr_wt, char.spr_flipx)
 end
@@ -244,7 +244,7 @@ In Pico-8, you only have a few inputs.  You can have 2 players, but they both on
 
 
 #### Our code should look like:
-```
+```lua
 function _update()
     if (btn(0)) then
         char.spr_num = 6
@@ -255,14 +255,16 @@ end
 
 Let's repeat for right, up, and down.
 
-```
+```lua
 function _update()
   if (btn(0)) then
     char.spr_num = 6
     char.flipx = true
+    char.xpos = -1
   elseif (btn(1)) then
     char.spr_num = 6
     char.flipx = false
+    char.xpos = 
   elseif (btn(2)) then
     char.spr_num = 32
     char.flipx = false
@@ -273,4 +275,86 @@ function _update()
 end
 ```
 
-#### Eight: Methods
+#### [Seven: Movement, Operators, and Methods]()
+
+Our goblin still isn't moving.  We need to add some code to do this.  
+
+
+Our char table already tracks the x and y coordinates for our character.  Let's add some code so these change when someone presses the up, down, left, or right buttons. 
+```lua
+function _update()
+    if (btn(0)) then
+        char.spr_num = 6
+        char.flipx = true
+        char.x_pos -=  1
+    elseif (btn(1)) then
+        char.spr_num = 6
+        char.flipx = false
+        char.xpos += 1
+    elseif (btn(2)) then
+        char.spr_num = 32
+        char.flipx = false
+        char.y_pos += 1
+    elseif (btn(3)) then
+        char.spr_num = 4
+        char.flipx = false
+        char.y_pos -= 1
+    end
+end
+```
+
+-= an d+= are special operators in Pico-8 that allow you to add or remove a value from your assigned variable.
+
+Tables can also contain functions.  Other languages may call these methods.  Let's add a function to our table that allows our Goblin to teleport.
+
+#### Our Code Should Look Like This:
+```lua
+char = {
+    spr_val = 4,
+    x_pos = 60,
+    y_pos = 60,
+    spr_ht = 2,
+    spr_wt = 2,
+    health = 4,
+    name = "grishnakh",
+    spr_flipx = false,
+    teleport = function(self)
+                self.x_pos = flr(rnd(110)) + 10
+                self.y_pos = flr(rnd(110)) + 5
+            end;
+}
+```
+
+Three things here:
+
+1. We need this keyword self as a parameter for our function.  Basically, it tells Pico-8 that we're talking about this instance of char and that we need all of it's properties available to us.
+2. When we call properties inside of char, we need to specify this instance of char. That's why we say self.y_pos rather than char.y_pos.
+2. We're using two new predefined functions: flr() and rnd().  flr() returns a whole number. rnd() gives us as random number up to the number.  we can start from a specific value by adding that value to the end.  
+
+
+Now let's bind our method to the b button.
+
+#### Our Code Should Look Like This:
+```lua
+function _update()
+    if (btn(0)) then
+        char.spr_num = 6
+        char.flipx = true
+        char.x_pos -=  1
+    elseif (btn(1)) then
+        char.spr_num = 6
+        char.flipx = false
+        char.xpos += 1
+    elseif (btn(2)) then
+        char.spr_num = 32
+        char.flipx = false
+        char.y_pos += 1
+    elseif (btn(3)) then
+        char.spr_num = 4
+        char.flipx = false
+        char.y_pos -= 1
+    elseif (btn(4)) then
+        char.teleport()
+    end
+end
+```
