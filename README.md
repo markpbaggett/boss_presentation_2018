@@ -4,6 +4,8 @@
 
 The following materials are for use in the [Pico-8](http://www.lexaloffle.com/pico-8.php) workshop at [Big Orange Stem Saturday](https://www.lib.utk.edu/outreach/soil/b-o-s-s/) on April 7, 2018.
 
+The game we're building is called [**Troll 2: The Movie: The Game** and can be found here](https://www.lexaloffle.com/bbs/?pid=51180&tid=31068).
+
 ## About Pico-8
 
 [PICO-8](http://www.lexaloffle.com/pico-8.php) is a fantasy console for making, sharing and playing tiny games and other computer programs. When you turn it on, the machine greets you with a shell for typing in Lua commands and provides simple built-in tools for creating your own cartridges.
@@ -65,7 +67,7 @@ While it can be hard to read due to the 128 x 128 screen size, the code editor i
 
 Let's delete all the code here before we start (don't cheat).
 
-## [One:  Variables]()
+## [One:  Variables](examples/part_1.lua)
 
 **Variables** are the first programming concept we will discuss.  Variables have a name and associated value.  While the name stays the same, the value can change.
 
@@ -80,7 +82,7 @@ char_xpos = 60
 char_ypos = 60
 ```
 
-## [Two: Functions and Special Function _init()]()
+## [Two: Functions and Special Function _init()](examples/part_2.lua)
 
 In programming, a **function** is a block of code that performs a specific task when its called. Functions are important because they allow you to repeat the same tasks without having to rewrite any instructions.
 
@@ -101,7 +103,7 @@ function _init()
 end
 ```
 
-## [Three: Functions and Special Function _draw()]()
+## [Three: Functions and Special Function _draw()](examples/part_3.lua)
 
 Another special function in Pico-8 is called **_draw()**. Like _init(), _draw() is called automatically during program execution, however it is called 30 times per second (by default) rather than once at startup.  _draw() is where we will add our sprite graphics and any other messages to the screen.
 
@@ -136,7 +138,7 @@ function _draw()
 end
 ```
 
-## Five: Tables
+## [Four: Tables](examples/part_4.lua)
 
 You're probably wondering why we didn't set a variable for our height and width and maybe we should do that.  Before we do that though, you might of noticed our code is already getting messy. Every variable we've defined is about our character, but depending on how you've named your variables, that may not be obvious.
 
@@ -146,9 +148,9 @@ To fix this, let's convert all our existing variables to a table called char.  T
 
 ```
 char = {
-  spr_val = 4
-  x_pos = 60
-  y_pos = 60
+  spr_val = 4,
+  x_pos = 60,
+  y_pos = 60,
 }
 ```
 
@@ -165,18 +167,18 @@ Let's go ahead and add a sprite height and width as well as a few more key value
 #### Our New Code Should Look Like This
 
 ```
-char = {
- spr_val = 4
- x_pos = 60
- y_pos = 60
- spr_ht = 2
- spr_wt = 2
- health = 4
+char = { 
+    spr_val = 4,
+    x_pos = 60,
+    y_pos = 60,
+    spr_ht = 2,
+    spr_wt = 2,
+    health = 4,
 }
 
 ```
 
-## Six: Data Types
+## [Five: Data Types](examples/part_5.lua)
 
 So far, all of our values in our variable declarations have looked like this:
 
@@ -205,14 +207,14 @@ Pico-8 has a few other data types.  Let's add 2 to our char table:
 
 ```
 char = {
- spr_val = 4
- x_pos = 60
- y_pos = 60
- spr_ht = 2
- spr_wt = 2
- health = 4
- name = "grishnakh"
- spr_flipx = false
+ spr_val = 4,
+ x_pos = 60,
+ y_pos = 60,
+ spr_ht = 2,
+ spr_wt = 2,
+ health = 4,
+ name = "grishnakh",
+ spr_flipx = false,
 }
 ```
 
@@ -232,7 +234,7 @@ function _draw()
 end
 ```
 
-## Seven: Special Function _update()
+## [Six: Special Function _update()](examples/part_6.lua)
 
 Our final special function is** _update()**. Like _draw(), update is call 30 times per second (by default) automatically during program execution. The intended purpose of _update() is to test for user inputs (button presses), perform all of the calculations to advance the state of the game, and update the game's data structures with the results. Typically, this function does not update the display, though it may initiate sound effects (sfx()) and music (music()).
 
