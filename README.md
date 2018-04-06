@@ -158,6 +158,7 @@ Now that we've defined our table, we can update our function_draw() to use it:
 
 ```lua
 function _draw()
+  cls()
   spr(char.spr_val, char.x_pos, char.y_pos, 2, 2)
 end
 ```
@@ -230,6 +231,7 @@ Let's add this to our _draw().
 
 ```lua
 function _draw()
+  cls()
   spr(char.spr_val, char.x_pos, char.y_pos, char.spr_ht, char.spr_wt, char.spr_flipx)
 end
 ```

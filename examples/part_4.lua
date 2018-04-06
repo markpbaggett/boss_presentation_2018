@@ -12,5 +12,6 @@ function _init()
 end
 
 function _draw()
+    cls()
     spr(char.spr_val, char.x_pos, char.y_pos, 2, 2)
 end
