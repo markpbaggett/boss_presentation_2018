@@ -358,3 +358,7 @@ function _update()
     end
 end
 ```
+
+## [Eight:  Wrapping Up and Going Further](examples/final.p8.lua)
+
+If you want our final source code, click the link above.
